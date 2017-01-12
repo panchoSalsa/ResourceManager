@@ -1,0 +1,35 @@
+creating process x with priority 2
+creating process y with priority 1
+timeout
+creating process z with priority 2
+timeout
+requesting resource R1 with units 1
+timeout
+requesting resource R1 with units 1
+deleting process z
+releasing resource R1 with units 1
+deleting process x
+empty-line
+creating init process 
+creating process x with priority 1
+creating process p with priority 1
+creating process q with priority 1
+creating process r with priority 1
+timeout
+requesting resource R2 with units 2
+timeout
+requesting resource R3 with units 2
+timeout
+requesting resource R4 with units 1
+timeout
+timeout
+requesting resource R3 with units 2
+requesting resource R4 with units 4
+requesting resource R2 with units 1
+timeout
+deleting process q
+timeout
+timeout
+requesting resource R1 with units 2
+empty-line
+creating init process 
