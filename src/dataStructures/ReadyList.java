@@ -80,5 +80,19 @@ public class ReadyList
 				level_two.add(self);
 				break; 
 		}
-	}	
+	}
+	
+	public void RemovePCB(PCB pcb) {
+		switch(pcb.priority) {
+			case 0:
+				level_zero.remove(pcb);
+				break; 
+			case 1: 
+				level_one.remove(pcb);
+				break; 
+			case 2: 
+				level_two.remove(pcb);
+				break; 
+		}
+	}
 }

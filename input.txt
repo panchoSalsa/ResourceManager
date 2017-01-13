@@ -1,11 +1,7 @@
-cr a 1
-cr b 1
-cr c 1
 to
-to
-to
-cr x 2
 to
 to
 
 init
+to
+to

@@ -6,7 +6,7 @@ public class PCB
 {
 	public String pid; 
 	public String type; 
-	// list;
+	// other resources list;
 	public PCB parent; 
 	public LinkedList<PCB> children;
 	public int priority; 
