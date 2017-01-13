@@ -32,7 +32,7 @@ public class OutputFileHandler
 	}
 	
 	public void Print(String string) {
-		writer.println(string);
+		writer.print(string);
 	}
 	
 	public void ShowOutputFileName() {
