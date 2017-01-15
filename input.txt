@@ -1,7 +1,16 @@
+cr a 1
+req R1 1
+cr b 2
+req R1 1
+to
+to
+cr c 2
+req R2 1
+cr d 2
+to 
+req R1 1
+to
 to
 to
 to
 
-init
-to
-to

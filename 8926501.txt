@@ -1,2 +1,1 @@
-init init init init 
-init init init 
+init a a b a a a c c c d c c c c c 
