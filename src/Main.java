@@ -9,6 +9,9 @@ public class Main
 	{
 		System.out.println("**start**");
 		
+//		InputFileHandler input_file_handler = new InputFileHandler("/Volumes/USB DISK/CS143B/input.txt");
+//		OutputFileHandler output_file_handler = new OutputFileHandler("/Volumes/USB DISK/CS143B/8926501.txt");
+		
 		InputFileHandler input_file_handler = new InputFileHandler("input.txt");
 		OutputFileHandler output_file_handler = new OutputFileHandler("8926501.txt");
 		
