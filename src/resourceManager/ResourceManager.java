@@ -31,7 +31,6 @@ public class ResourceManager
 			rcb_list.add(new RCB(i));
 	}
 	
-	
 	public void CreateInit() {
 		self = new PCB(new String[]{"cr","init","0"}, null);
 		self.type = "running";
@@ -89,7 +88,7 @@ public class ResourceManager
 				//output_file_handler.Print("requesting resource " + array[1] + " with units " + array[2]);
 				break;
 			case REL:
-				Release(array[1], Integer.parseInt(array[2]));
+				Release(self, array[1], Integer.parseInt(array[2]));
 				//System.out.println("releasing resource " + array[1] + " with units " + array[2]);
 				//output_file_handler.Print("releasing resource " + array[1] + " with units " + array[2]);
 				break;
@@ -205,13 +204,16 @@ public class ResourceManager
 		// i need to go to my parent and remove from myself from his children list
 		pcb.parent.children.remove(self);
 		
-		// ATTENTION
-			// Must determine from which list i need to remove the pcb from 
-			// For now I am assuming all of them are in the ready list
-			// but in the future some of the children may be blocked in a resource list
-			// and some can be in the ready list
-			// must come up with a way to determine where they are located
-		
+		// restoring all resources the process is holding
+		for (RCBNode node : pcb.other_resources ) {
+			RCB rcb = node.GetRCB();
+			
+			// the process thats being deleted will free up all its resources
+			// this will lead to unblocking some of its descendants 
+			// but since the descendants will also be removed recursively
+			// they will also free up any new resources they have gained
+			Release(pcb, rcb.rid, node.GetN());
+		}
 		
 		// i need to go to the ready list and remove myself from the list
 		ready_list.RemovePCB(pcb);
@@ -227,13 +229,8 @@ public class ResourceManager
 	
 	private void Request(String rid, int n) {
 		RCB rcb = GetRCB(rid);
-		if (rcb.EnougResources(n)) {
+		if (rcb.EnoughResources(n)) {
 			rcb.AssignResources(n);
-			
-			// i might need to create another structure that encapsulates (rcb and n)
-			// i will need an rcb node
-			// when deleting resource we traverse thru other resources list 
-			// and remove the exact amount of n from that resource and remove it from other resource list
 			
 			AddToOtherResources(self,rcb,n);
 				
@@ -241,6 +238,7 @@ public class ResourceManager
 			self.type = "blocked";
 			ready_list.RemovePCB(self);
 			rcb.InsertIntoBlockList(self,n);
+			
 			// PCB will need to have pointer to blocked_list 
 			self.blocked_list = rcb.blocked_list;
 		}	
@@ -255,19 +253,25 @@ public class ResourceManager
 			}
 		}
 		
-		// RCBNode does not exist in other_resources list
-		// so we have to create it 
+		
+		// if the RCBNode does not exist in other_resources list
+		// then we have to create it 
+		// we are requesting a resource for the first time
 		pcb.other_resources.add(new RCBNode(rcb,n));
 		
 	}
 
-	private void Release(String rid, int n) {
+	private void Release(PCB pcb, String rid, int n) {
 		// ill need to check errors if i can release more resources than available k = 2, n = 6 should fail
+		
+		// or if am releasing a resource i never held 
+		
+		// returns more units then it requested  error 
 		
 		RCB rcb = GetRCB(rid);
 		
 		rcb.RestoreResources(n);
-		self.UpdateOtherResources(rcb,n);
+		pcb.UpdateOtherResources(rcb,n);
 		
 		while (! rcb.blocked_list.isEmpty() && rcb.CanIReleaseNext()) {
 			RemoveFromBlockedList(rcb);

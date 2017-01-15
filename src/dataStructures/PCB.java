@@ -46,6 +46,7 @@ public class PCB
 	public void UpdateOtherResources(RCB rcb, int n)
 	{
 		RCBNode node = GetRCBNode(rcb);
+		
 		node.Decrement(n);
 		
 		// when n gets to zero we can remove that resource from the 

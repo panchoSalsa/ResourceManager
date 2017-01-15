@@ -27,5 +27,8 @@ public class RCBNode
 	public int GetN() {
 		return n; 
 	}
-
+	
+	public RCB GetRCB() {
+		return rcb; 
+	}
 }

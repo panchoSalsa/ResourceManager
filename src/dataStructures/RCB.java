@@ -29,7 +29,7 @@ public class RCB
 		available -= n; 
 	}
 	
-	public boolean EnougResources(int n) {
+	public boolean EnoughResources(int n) {
 		return available >= n; 
 	}
 

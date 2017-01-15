@@ -1,1 +1,2 @@
-init a a b a a a c c c d c c c c c 
+init x x x x p p q q r r x p q r x x x p x 
+init x x x x z z x z x x init 
