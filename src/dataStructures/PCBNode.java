@@ -1,5 +1,7 @@
 package dataStructures;
 
+
+// Used by the RCB class to keep track of which processes are blocked and how many resources they are requesting
 public class PCBNode
 {
 	private PCB pcb;

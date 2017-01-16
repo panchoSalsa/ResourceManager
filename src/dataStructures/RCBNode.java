@@ -1,9 +1,11 @@
 package dataStructures;
 
+// Used by the PCB blocks to link resources they are occupying and how many units n of each resource
 public class RCBNode
 {
 	private RCB rcb;
 	private int n; 
+	
 	public RCBNode(RCB rcb, int n) {
 		this.rcb = rcb;
 		this.n = n; 

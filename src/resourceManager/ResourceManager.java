@@ -212,7 +212,7 @@ public class ResourceManager
 			// this will lead to unblocking some of its descendants 
 			// but since the descendants will also be removed recursively
 			// they will also free up any new resources they have gained
-			Release(pcb, rcb.rid, node.GetN());
+			ReleaseOnDelete(pcb, rcb, node.GetN());
 		}
 		
 		// i need to go to the ready list and remove myself from the list
@@ -261,14 +261,15 @@ public class ResourceManager
 		
 	}
 
-	private void Release(PCB pcb, String rid, int n) {
-		// ill need to check errors if i can release more resources than available k = 2, n = 6 should fail
-		
-		// or if am releasing a resource i never held 
-		
-		// returns more units then it requested  error 
-		
+	// this Release function only gets called when the current running process
+	// releases a resource 
+	private void Release(PCB pcb, String rid, int n) {				 
 		RCB rcb = GetRCB(rid);
+		
+		CheckForReleaseErrors(rcb,n);
+		
+		if (error == true)
+			return; 
 		
 		rcb.RestoreResources(n);
 		pcb.UpdateOtherResources(rcb,n);
@@ -278,6 +279,36 @@ public class ResourceManager
 		}
 		
 	}
+	
+	private void CheckForReleaseErrors(RCB rcb, int n) {
+		// checking if am releasing a resource i never held 
+		if (! self.HasResource(rcb)) {
+			error = true; 
+			return; 
+		}
+		
+		// checking if i am releasing more units than assigned
+		if (! self.ValidRelease(rcb, n)) {
+			error = true; 
+			return; 
+		}
+	}
+		
+	// this ReleaseOnDelete function only gets called when the current running process
+	// deletes itself and its children recursively
+	private void ReleaseOnDelete(PCB pcb, RCB rcb, int n) {
+		
+		rcb.RestoreResources(n);
+		pcb.UpdateOtherResources(rcb,n);
+		
+		while (! rcb.blocked_list.isEmpty() && rcb.CanIReleaseNext()) {
+			RemoveFromBlockedList(rcb);
+		}
+		
+	}
+	
+	
+	
 	
 	private void RemoveFromBlockedList(RCB rcb)
 	{

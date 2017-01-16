@@ -54,4 +54,22 @@ public class PCB
 		if (node.GetN() == 0)
 			other_resources.remove(node);
 	}
+
+	public boolean HasResource(RCB rcb)
+	{
+		if (GetRCBNode(rcb) != null)
+			return true;
+		else 
+			return false; 
+	}
+
+	public boolean ValidRelease(RCB rcb, int n)
+	{
+		RCBNode node = GetRCBNode(rcb);
+		
+		if (node.GetN() >= n)
+			return true; 
+		else
+			return false; 
+	}
 }
