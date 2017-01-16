@@ -229,7 +229,14 @@ public class ResourceManager
 	
 	private void Request(String rid, int n) {
 		RCB rcb = GetRCB(rid);
+		
+		CheckForRequestErrors(rcb,n);
+		
+		if (error == true)
+			return; 
+		
 		if (rcb.EnoughResources(n)) {
+			
 			rcb.AssignResources(n);
 			
 			AddToOtherResources(self,rcb,n);
@@ -244,6 +251,13 @@ public class ResourceManager
 		}	
 	}
 	
+	private void CheckForRequestErrors(RCB rcb, int n)
+	{
+		if (! rcb.ValidRequest(n))
+			error = true; 
+		
+	}
+
 	private void AddToOtherResources(PCB pcb, RCB rcb, int n)
 	{
 		for (RCBNode node : pcb.other_resources) {

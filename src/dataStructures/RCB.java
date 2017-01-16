@@ -47,4 +47,9 @@ public class RCB
 		else
 			return false; 
 	}
+
+	public boolean ValidRequest(int n)
+	{
+		return k >= n; 
+	}
 }
