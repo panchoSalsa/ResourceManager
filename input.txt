@@ -1,7 +1,17 @@
 to
 to
 to
-de init
-req R4 4
+cr x 2
+cr z 2
+req R1 1
+req R1 1
+to
+req R1 1
+to
+rel R1 1
+to
+de x
+to
+cr y 1
 to
 to

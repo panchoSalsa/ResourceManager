@@ -273,7 +273,19 @@ public class ResourceManager
 	private void CheckForRequestErrors(RCB rcb, int n)
 	{
 		if (! rcb.ValidRequest(n))
+			error = true;
+		
+		// rcb_node will be null the first because the rcb_node hasnt been created yet
+		// remmeber that this is the early stages of a request
+		// we are just error checking 
+	
+		RCBNode rcb_node = self.GetRCBNode(rcb);
+		
+		// if number of resources already allocated + requesting > k then fail 
+		// else it will block 
+		if (rcb_node != null && rcb_node.GetN() + n > rcb.k )
 			error = true; 
+			
 		
 	}
 
