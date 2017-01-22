@@ -156,7 +156,7 @@ public class ResourceManager
 	private void Delete (String pid) {
 		
 		// check for init error
-		if (DeletingInit(pid)) {
+		if (IsInitProcess(pid)) {
 			error = true; 
 			return;
 		}
@@ -180,7 +180,7 @@ public class ResourceManager
 		
 	}
 	
-	private boolean DeletingInit(String pid) {
+	private boolean IsInitProcess(String pid) {
 		return pid.equals("init");
 	}
 	
@@ -239,6 +239,14 @@ public class ResourceManager
 	}
 	
 	private void Request(String rid, int n) {
+		
+		// check for init error
+		if (IsInitProcess(self.pid)) {
+			error = true; 
+			return;
+		}
+		
+		
 		RCB rcb = GetRCB(rid);
 		
 		CheckForRequestErrors(rcb,n);
@@ -288,7 +296,14 @@ public class ResourceManager
 
 	// this Release function only gets called when the current running process
 	// releases a resource 
-	private void Release(PCB pcb, String rid, int n) {				 
+	private void Release(PCB pcb, String rid, int n) {	
+		
+		// check for init error
+		if (IsInitProcess(self.pid)) {
+			error = true; 
+			return;
+		}
+		
 		RCB rcb = GetRCB(rid);
 		
 		CheckForReleaseErrors(rcb,n);
