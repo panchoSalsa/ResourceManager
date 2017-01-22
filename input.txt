@@ -1,17 +1,5 @@
-cr x 2
-cr y 1
 to
-cr z 2
 to
-req R1 1
 to
-req R1 1
-de z
-rel R1 1
-de x
-
-init
-req R2 3
-de o
-cr x 1
-de x
+de init
+to

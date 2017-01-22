@@ -154,6 +154,13 @@ public class ResourceManager
 	}
 	
 	private void Delete (String pid) {
+		
+		// check for init error
+		if (DeletingInit(pid)) {
+			error = true; 
+			return;
+		}
+			
 		// verify that if am an ancestor
 		
 		PCB target = GetPCB(pid);
@@ -171,6 +178,10 @@ public class ResourceManager
 			error = true;  
 		}
 		
+	}
+	
+	private boolean DeletingInit(String pid) {
+		return pid.equals("init");
 	}
 	
 	private boolean CheckIfAncestor(PCB target) {
