@@ -2,9 +2,8 @@ to
 to
 to
 cr x 0
+to
 cr x 1
 cr y 2
-cr x 2
-de y
 to
 to
