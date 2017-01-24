@@ -119,7 +119,7 @@ public class ResourceManager
 	}
 	
 	private void Create(String[] array) {
-		if (! PIDExists(array[1])) {
+		if (! PIDExists(array[1]) && ! PriorityIsZero(array[2])) {
 			PCB pcb = new PCB(array, self);
 			created_processes.add(pcb);
 			
@@ -137,6 +137,11 @@ public class ResourceManager
 
 	}
 	
+	private boolean PriorityIsZero(String priority)
+	{
+		return priority.equals("0");
+	}
+
 	private boolean PIDExists(String pid) {
 		if (GetPCB(pid) != null)
 			return true; 
@@ -272,8 +277,10 @@ public class ResourceManager
 	
 	private void CheckForRequestErrors(RCB rcb, int n)
 	{
-		if (! rcb.ValidRequest(n))
+		if (! rcb.ValidRequest(n)) {
 			error = true;
+			return; 
+		}
 		
 		// rcb_node will be null the first because the rcb_node hasnt been created yet
 		// remmeber that this is the early stages of a request

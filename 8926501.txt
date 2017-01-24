@@ -1,1 +1,1 @@
-init init init init x x x error z x x x z error x x z x 
+init init init init error x y error x x x 

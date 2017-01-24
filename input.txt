@@ -1,17 +1,10 @@
 to
 to
 to
+cr x 0
+cr x 1
+cr y 2
 cr x 2
-cr z 2
-req R1 1
-req R1 1
-to
-req R1 1
-to
-rel R1 1
-to
-de x
-to
-cr y 1
+de y
 to
 to
